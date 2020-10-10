@@ -6,8 +6,8 @@ import geopandas as gpd
 merged_dict_df = pd.read_csv('nws_shapefile_translated.csv')
 
 # data courtesy of https://mappingpoliceviolence.org/
-MVP_raw = pd.read_csv("2013-2019 Police Killings_june05.csv")
-MVP_raw = MVP_raw.rename(columns={'State':'STATE'})
+mvp_raw = pd.read_csv("2013-2019 Police Killings_june05.csv")
+mvp_raw = mvp_raw.rename(columns={'State':'STATE'})
 
 # merge the recorded deaths dataset with the pre-processed shapefile data
 kepler_mvp_df = pd.merge(MVP_raw,merged_dict_df, on=['STATE','County'])
@@ -21,7 +21,7 @@ kepler_mvp_df[‘datetime’] = kepler_mvp_df[‘datetime’].astype(str) + ‘ 
 
 # ========================= Map Generation =========================
 from keplergl import KeplerGl
-mvp_map = KeplerGl(height=1000, data={'police action that resulted in death': kepler_mvp_df}, config=new_config)
+mvp_map = KeplerGl(height=1000, data={'police actions that resulted in death': kepler_mvp_df})
 
 # modify the map settings as you desire until you have your final map.
 
