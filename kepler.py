@@ -3,14 +3,14 @@ import geopandas as gpd
 
 # ========================= Data Prep =========================
 # Pre-processed shapefile data and corresponding state information combined
-merged_dict_df = pd.read_csv('nws_shapefile_translated.csv')
+merged_dict = pd.read_csv('nws_shapefile_translated.csv')
 
 # data courtesy of https://mappingpoliceviolence.org/
 mvp_raw = pd.read_csv("2013-2019 Police Killings_june05.csv")
 mvp_raw = mvp_raw.rename(columns={'State':'STATE'})
 
 # merge the recorded deaths dataset with the pre-processed shapefile data
-kepler_mvp_df = pd.merge(MVP_raw,merged_dict_df, on=['STATE','County'])
+kepler_mvp_df = pd.merge(mvp_raw,merged_dict, on=['STATE','County'])
 
 kepler_mvp_df = kepler_mvp_df.dropna(subset=["Victim's name"])
 kepler_mvp_df = kepler_mvp_df.rename(columns={'Date of Incident (month/day/year)':'datetime'})
